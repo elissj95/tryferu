@@ -3,6 +3,14 @@ import { GeneratedAlways } from "kysely";
 
 export const db = createKysely<DatabaseSchema>();
 
+type TransformGeneratedAlways<T> = {
+  [K in keyof T]: T[K] extends GeneratedAlways<infer U>
+    ? U
+    : T[K] extends object
+    ? TransformGeneratedAlways<T[K]>
+    : T[K];
+};
+
 export interface DatabaseSchema {
   spots: {
     id: GeneratedAlways<string>;
@@ -35,3 +43,5 @@ export interface DatabaseSchema {
     fish_id: number;
   };
 }
+
+export type TDatabaseSchema = TransformGeneratedAlways<DatabaseSchema>;

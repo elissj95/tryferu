@@ -1,39 +1,45 @@
 "use client";
 
-import { addSpot } from "@/actions/spots/add-spot";
+import { updateSpot } from "@/actions/spots/update-spot";
 import { Button } from "@/components/button";
 import { Dialog } from "@/components/dialog";
-import { PlusIcon } from "@radix-ui/react-icons";
+import { TDatabaseSchema } from "@/store/db";
+import { Pencil1Icon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 import { SpotFormData } from "../types/spot-schema";
 import { SpotForm } from "./spot-form";
 import { useState } from "react";
 
-export const NewSpotDialog = () => {
+export const UpdateSpotDialog = ({
+  id,
+  defaultSpot,
+}: {
+  id: string;
+  defaultSpot: TDatabaseSchema["spots"];
+}) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const createSpot = async (formData: SpotFormData) => {
     try {
-      await addSpot(formData);
+      await updateSpot(id, formData);
       setIsDialogOpen(false);
-      toast.success("Successfully added spot");
+      toast.success("Successfully updated spot");
     } catch {
-      toast.error("Failed to add spot");
+      toast.error("Failed to update spot");
     }
   };
 
   return (
     <Dialog
-      title="Create New Spot"
+      title="Update Spot"
       trigger={
-        <Button variant={"outline"}>
-          <PlusIcon />
-          Add new spot
+        <Button variant="icon">
+          <Pencil1Icon />
         </Button>
       }
       open={isDialogOpen}
       onOpenChange={setIsDialogOpen}
     >
-      <SpotForm formAction={createSpot} />
+      <SpotForm formAction={createSpot} defaultSpot={defaultSpot} />
     </Dialog>
   );
 };

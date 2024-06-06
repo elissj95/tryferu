@@ -1,29 +1,19 @@
 "use client";
 
-import { Button } from "@/components/button";
-import { Pencil1Icon, TrashIcon } from "@radix-ui/react-icons";
-import { convertCoordinates } from "../utils/convert-coordinates";
 import { deleteSpot } from "@/actions/spots/delete-spot";
-import { toast } from "sonner";
-import { NewSpotDialog } from "./new-spot-dialog";
-import { DatabaseSchema } from "@/store/db";
+import { Button } from "@/components/button";
+import { DatabaseSchema, TDatabaseSchema } from "@/store/db";
+import { TrashIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { toast } from "sonner";
+import { convertCoordinates } from "../utils/convert-coordinates";
+import { UpdateSpotDialog } from "./update-spot-dialog";
 
 export default function SpotsList({
   spots,
 }: {
-  spots?:
-    | {
-        id: string;
-        name: string;
-        description: string | null;
-        type: string | null;
-        coordinates: string;
-      }[]
-    | undefined;
+  spots: TDatabaseSchema["spots"][];
 }) {
-  const [selectedSpot, setSelectedSpot] = useState<DatabaseSchema["spots"]>();
-
   const handleDelete = async (id: string) => {
     try {
       await deleteSpot(id);
@@ -44,7 +34,7 @@ export default function SpotsList({
             <h3>{spot.name}</h3>
             <div className="flex gap-2">
               <Button variant="icon">
-                <Pencil1Icon />
+                <UpdateSpotDialog id={spot.id} defaultSpot={spot} />
               </Button>
               <Button variant="icon" onClick={() => handleDelete(spot.id)}>
                 <TrashIcon className="text-red-500" />
@@ -59,7 +49,6 @@ export default function SpotsList({
           <p>{spot.description}</p>
         </div>
       ))}
-      <NewSpotDialog defaultSpot={selectedSpot} />
     </div>
   );
 }
