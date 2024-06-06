@@ -17,17 +17,37 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  @apply text-black;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+@layer base {
+  h1 {
+    @apply text-[32px] font-bold text-black;
+  }
+
+  h2 {
+    @apply text-[24px] font-bold text-black;
+  }
+
+  h3 {
+    @apply text-[20px] font-bold text-black;
+  }
+
+  .body-1 {
+    @apply text-[14px] text-black;
+  }
+
+  .body-2 {
+    @apply text-[12px] text-black;
+  }
+
+  .subheader {
+    @apply text-[14px] font-bold uppercase text-black600;
   }
 }
