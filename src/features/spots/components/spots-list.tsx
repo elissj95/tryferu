@@ -2,9 +2,8 @@
 
 import { deleteSpot } from "@/actions/spots/delete-spot";
 import { Button } from "@/components/button";
-import { DatabaseSchema, TDatabaseSchema } from "@/store/db";
+import { TDatabaseSchema } from "@/store/db";
 import { TrashIcon } from "@radix-ui/react-icons";
-import { useState } from "react";
 import { toast } from "sonner";
 import { convertCoordinates } from "../utils/convert-coordinates";
 import { UpdateSpotDialog } from "./update-spot-dialog";
@@ -12,7 +11,7 @@ import { UpdateSpotDialog } from "./update-spot-dialog";
 export default function SpotsList({
   spots,
 }: {
-  spots: TDatabaseSchema["spots"][];
+  spots?: TDatabaseSchema["spots"][];
 }) {
   const handleDelete = async (id: string) => {
     try {

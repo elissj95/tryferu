@@ -6,19 +6,24 @@ import { Label } from "@/components/form/label";
 import { MapComponent } from "@/components/map/components/map-component";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, SewingPinIcon } from "@radix-ui/react-icons";
-import { Button } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SpotFormData, spotSchema } from "../types/spot-schema";
+import { Button } from "@/components/button";
 
 export const SpotForm = ({
+  isUpdate,
   formAction,
   defaultSpot,
 }: {
+  isUpdate?: boolean;
   formAction: (data: SpotFormData) => void;
   defaultSpot?: SpotFormData;
 }) => {
-  const [markers, setMarkers] = useState<{ lat: number; lng: number }[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [markers, setMarkers] = useState<
+    { lat: number; lng: number; name?: string; id?: string }[]
+  >([]);
   const {
     handleSubmit,
     register,
@@ -62,9 +67,12 @@ export const SpotForm = ({
                   Choose Location
                 </Button>
               }
+              open={isDialogOpen}
+              onOpenChange={setIsDialogOpen}
             >
               <MapComponent
                 limit={1}
+                isClearable
                 markers={markers}
                 setMarkers={setMarkers}
               />
@@ -84,8 +92,14 @@ export const SpotForm = ({
       </Field>
       <div className="flex justify-end">
         <Button type="submit" variant="solid">
-          <PlusIcon />
-          Create
+          {isUpdate ? (
+            <>Update</>
+          ) : (
+            <>
+              <PlusIcon />
+              Create
+            </>
+          )}
         </Button>
       </div>
     </form>

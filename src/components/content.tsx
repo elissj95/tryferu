@@ -10,5 +10,11 @@ export const Content = ({
   children: ReactNode;
   className?: string;
 }) => {
-  return <div className={contentStyles({ className })}>{children}</div>;
+  return (
+    <div className={contentStyles({ className })}>
+      <div className="flex flex-col gap-4 max-w-[1080px] mx-auto pt-4">
+        {children}
+      </div>
+    </div>
+  );
 };

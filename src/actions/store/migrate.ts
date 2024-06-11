@@ -1,11 +1,11 @@
 "use server";
 
 import { db } from "@/store/db";
-import { down, up } from "../../../migrations/001_create_db";
+import { down, up } from "../../../migrations/002_create_db";
 
 export const databaseDown = async () => {
   try {
-    down(db);
+    await down(db);
   } catch (e) {
     throw new Error(e instanceof Error ? e.message : "An error occurred");
   }
@@ -13,7 +13,7 @@ export const databaseDown = async () => {
 
 export const databaseUp = async () => {
   try {
-    up(db);
+    await up(db);
   } catch (e) {
     throw new Error(e instanceof Error ? e.message : "An error occurred");
   }

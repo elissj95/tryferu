@@ -1,9 +1,10 @@
 import { cva, type VariantProps } from "cva";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
+import { ClockIcon } from "@radix-ui/react-icons"; // Importing Radix ClockIcon
 
 const inputVariants = cva(
-  ["border border-black200", "rounded-md", "p-2 pl-4"],
+  ["border border-black200", "rounded-md", "p-2 pl-4", "h-10"],
   {
     variants: {
       variant: {
@@ -26,11 +27,14 @@ export interface InputProps
     VariantProps<typeof inputVariants> {}
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, children, variant, ...props }, ref) => {
+  ({ className, children, variant, type, ...props }, ref) => {
     return (
-      <input className={input({ variant })} ref={ref} {...props}>
-        {children}
-      </input>
+      <input
+        className={twMerge(input({ variant }), className)}
+        ref={ref}
+        type={type}
+        {...props}
+      />
     );
   }
 );

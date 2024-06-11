@@ -19,10 +19,14 @@ export const MapComponent = ({
   limit,
   markers,
   setMarkers,
+  isClearable,
 }: {
   limit?: number;
-  markers: { lat: number; lng: number }[];
-  setMarkers: Dispatch<SetStateAction<{ lat: number; lng: number }[]>>;
+  markers: { lat: number; lng: number; id?: string; name?: string }[];
+  setMarkers: Dispatch<
+    SetStateAction<{ lat: number; lng: number; id?: string; name?: string }[]>
+  >;
+  isClearable?: boolean;
 }) => {
   const addMarker = (e: L.LeafletMouseEvent) => {
     const newPoint = e.latlng;
@@ -61,19 +65,32 @@ export const MapComponent = ({
       scrollWheelZoom={false}
     >
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      <TileLayer url="https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png" />
-      {markers.map((position, idx) => (
-        <Marker key={`marker-${idx}`} position={position} icon={customIcon}>
-          <Popup>Marker {idx + 1}</Popup>
-        </Marker>
-      ))}
+      <TileLayer url="https://tinles.openseamap.org/seamark/{z}/{x}/{y}.png" />
+
+      {markers.map((marker, idx) => {
+        const id = marker.id;
+        const name = marker.name;
+        const { lat, lng } = marker;
+
+        return (
+          <Marker
+            key={`marker-${id || idx}`}
+            position={{ lat, lng }}
+            icon={customIcon}
+          >
+            {name && <Popup>{name}</Popup>}
+          </Marker>
+        );
+      })}
       <MapEvents />
       <Control prepend position="topleft">
         <div className="flex flex-col gap-2 items-start">
-          <Button color="inherit" variant={"solid"} onClick={clearMarkers}>
-            <CrossCircledIcon />
-            Clear Markers
-          </Button>
+          {isClearable && (
+            <Button color="inherit" variant={"solid"} onClick={clearMarkers}>
+              <CrossCircledIcon />
+              Clear Markers
+            </Button>
+          )}
         </div>
       </Control>
     </MapContainer>

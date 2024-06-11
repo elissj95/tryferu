@@ -1,13 +1,7 @@
-import { Content } from "@/components/content";
-import { Navbar } from "@/components/navbar";
+import { getSpot } from "@/actions/spots/get-spot";
 
-export default function Page() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <Content>
-        <h1>Spot</h1>
-      </Content>
-    </div>
-  );
+export default async function Page({ params }: { params: { spotId: string } }) {
+  const spot = await getSpot(params.spotId);
+
+  return <h1>Spot: {spot?.name}</h1>;
 }

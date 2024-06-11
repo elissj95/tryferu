@@ -1,21 +1,23 @@
 import { getAllSessions } from "@/actions/sessions/get-all-sessions";
-import { Content } from "@/components/content";
-import { Navbar } from "@/components/navbar";
+import { getAllSpots } from "@/actions/spots/get-all-spots";
+import { NewSessionDialog } from "@/features/sessions/components/new-session-dialog";
+import { SessionCard } from "@/features/sessions/components/session-card";
 
 export default async function Page() {
   const sessions = await getAllSessions();
+  const spots = await getAllSpots();
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <Content>
+    <>
+      <div className="flex justify-between items-center">
         <h1>Sessions</h1>
-        <ul>
-          {sessions?.map((session) => (
-            <li key={session.id}>{session.date.toString()}</li>
-          ))}
-        </ul>
-      </Content>
-    </div>
+        <NewSessionDialog spots={spots} />
+      </div>
+      <ul>
+        {sessions?.map((session) => (
+          <SessionCard session={session} key={session.id} />
+        ))}
+      </ul>
+    </>
   );
 }

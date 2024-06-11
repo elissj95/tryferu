@@ -39,7 +39,7 @@ export const UpdateSpotDialog = ({
       open={isDialogOpen}
       onOpenChange={setIsDialogOpen}
     >
-      <SpotForm formAction={createSpot} defaultSpot={defaultSpot} />
+      <SpotForm formAction={createSpot} defaultSpot={defaultSpot} isUpdate />
     </Dialog>
   );
 };

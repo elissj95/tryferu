@@ -22,25 +22,26 @@ export interface DatabaseSchema {
   fish_species: {
     id: GeneratedAlways<string>;
     species: string;
-    breed: string | null;
-    name: string;
+    commonName: string;
+    family: string | null;
     description: string | null;
+    habitat: string | null;
   };
   spearfishing_logs: {
     id: GeneratedAlways<string>;
-    spot_id: number;
+    spot_id: string;
     time: string;
     date: string;
     conditions: number;
     breath_hold: number;
   };
   fish_seen: {
-    log_id: number;
-    fish_id: number;
+    log_id: string;
+    fish_id: string;
   };
   fish_caught: {
-    log_id: number;
-    fish_id: number;
+    log_id: string;
+    fish_id: string;
   };
 }
 
