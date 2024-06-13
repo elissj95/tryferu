@@ -32,9 +32,7 @@ export default function SpotsList({
           <div className="flex justify-between items-center">
             <h3>{spot.name}</h3>
             <div className="flex gap-2">
-              <Button variant="icon">
-                <UpdateSpotDialog id={spot.id} defaultSpot={spot} />
-              </Button>
+              <UpdateSpotDialog id={spot.id} defaultSpot={spot} />
               <Button variant="icon" onClick={() => handleDelete(spot.id)}>
                 <TrashIcon className="text-red-500" />
               </Button>
