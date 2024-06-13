@@ -12,8 +12,8 @@ export default async function Page() {
         <h1>Spots</h1>
         {/* <NewSpotDialog /> */}
       </div>
-      <SpotsList spots={spots} />
-      <SpotMap spots={spots} />
+      {/* <SpotsList spots={spots} />
+      <SpotMap spots={spots} /> */}
     </>
   );
 }
