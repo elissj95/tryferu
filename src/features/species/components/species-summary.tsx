@@ -1,16 +1,11 @@
-import { Button } from "@/components/button";
 import { Card } from "@/components/card";
-import Link from "next/link";
+import { LinkButton } from "@/components/link-button";
 
 export const SpeciesSummary = () => {
   return (
     <Card
       title="species"
-      buttons={
-        <Link href="/species">
-          <Button variant="outline">View All</Button>
-        </Link>
-      }
+      buttons={<LinkButton href="/species">View All</LinkButton>}
     >
       Species Summary
     </Card>

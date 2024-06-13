@@ -1,4 +1,5 @@
 import { cva, type VariantProps } from "cva";
+import Link from "next/link";
 import { forwardRef } from "react";
 import { twMerge } from "tailwind-merge";
 

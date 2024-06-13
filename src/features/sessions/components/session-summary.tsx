@@ -1,16 +1,11 @@
-import { Button } from "@/components/button";
 import { Card } from "@/components/card";
-import Link from "next/link";
+import { LinkButton } from "@/components/link-button";
 
 export const SessionSummary = () => {
   return (
     <Card
       title="Session Summary"
-      buttons={
-        <Link href="/sessions">
-          <Button variant="outline">View All</Button>
-        </Link>
-      }
+      buttons={<LinkButton href="/sessions">View All</LinkButton>}
     >
       Session Summary
     </Card>

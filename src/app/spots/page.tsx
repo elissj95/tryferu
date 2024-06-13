@@ -10,7 +10,7 @@ export default async function Page() {
     <>
       <div className="flex justify-between pb-4 items-center">
         <h1>Spots</h1>
-        <NewSpotDialog />
+        {/* <NewSpotDialog /> */}
       </div>
       <SpotsList spots={spots} />
       <SpotMap spots={spots} />
