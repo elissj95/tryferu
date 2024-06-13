@@ -1,7 +1,17 @@
 "use client";
 
-import { MapComponent } from "@/components/map/components/map-component";
 import { TDatabaseSchema } from "@/store/db";
+import dynamic from "next/dynamic";
+
+const MapComponent = dynamic(
+  () =>
+    import("@/components/map/components/map-component").then(
+      (mod) => mod.MapComponent
+    ),
+  {
+    ssr: false,
+  }
+);
 
 export const SpotMap = ({
   spots = [],

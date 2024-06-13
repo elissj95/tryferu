@@ -3,13 +3,23 @@ import { ErrorMessage } from "@/components/form/error-message";
 import { Field } from "@/components/form/field";
 import { Input } from "@/components/form/input";
 import { Label } from "@/components/form/label";
-import { MapComponent } from "@/components/map/components/map-component";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon, SewingPinIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { SpotFormData, spotSchema } from "../types/spot-schema";
 import { Button } from "@/components/button";
+import dynamic from "next/dynamic";
+
+const MapComponent = dynamic(
+  () =>
+    import("@/components/map/components/map-component").then(
+      (mod) => mod.MapComponent
+    ),
+  {
+    ssr: false,
+  }
+);
 
 export const SpotForm = ({
   isUpdate,
